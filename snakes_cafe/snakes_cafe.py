@@ -1,92 +1,59 @@
-welcomeMassage = """**************************************
-**    Welcome to the Snakes Cafe!   **
-**    Please see our menu below.    **
-**
-** To quit at any time, type "quit" **
-**************************************"""
-menu = [
-    {
-        'type':'Appetizers',
-        'foods':[
-            'Wings','Cookies','Spring Rolls',
-        ]
-    },
-    {
-        'type':'Entrees',
-        'foods':[
-            'Salmon','Steak','Meat Tornado','A Literal Garden',
-        ]
-    },
-    {
-        'type':'Desserts',
-        'foods':[
-            'Ice Cream','Cake','Pie',
-        ]
-    },
-    {
-        'type':'Drinks',
-        'foods':[
-            'Coffee','Tea','Unicorn Tears',
-        ]
-    },
-]
+menue_snake_cafe = {"Appetizers":["Cookies","Spring Rolls","Wings"],
+"Entrees":["Steak","Salmon","A Literal Garden","Meat Tornado"],
+"Drinks":["Tea","Unicorn Tears","Coffee"],
+"Desserts":["Cake","Pie","Ice Cream"],
+}
 
-appetizers = """Appetizers
-----------
-Wings
-Cookies
-Spring Rolls
-"""
-entrees = """Entrees
--------
-Salmon
-Steak
-Meat Tornado
-A Literal Garden
-"""
-desserts = """Desserts
---------
-Ice Cream
-Cake
-Pie
-"""
-drinks = """Drinks
-------
-Coffee
-Tea
-Unicorn Tears
-"""
-print(welcomeMassage)
-print(appetizers)
-print(entrees)
-print(desserts)
-print(drinks)
-orderlist = []
-counter = 0
-flag = 1
-while flag == 1:
-    order = input("""***********************************
-    ** What would you like to order? **
-    ***********************************
-    >""")
+def welcoming_Massage():
+    print('**************************************')
+    print('**    Welcome to the Snakes Cafe!   **')
+    print('**    Please see our menu below.    **')
+    print('**')
+    print('** To quit at any time, type "quit" **')
+    print('**************************************\n')
+    print('')
+    orders = menue_snake_cafe.items()
+    print(orders)
+    for item, category in orders:
+      print(item)
+      print('-'*len(item))
+      print(category)
+      for order in category:
+        print(order)
+      print('\n')
 
-    if order == "quit":
-        flag = 0
-        break
+
+def choose_snake():
+    counter=0
+    counter_orders=0
+    print('***********************************')
+    print('** What would you like to order? **')
+    print('***********************************\n')
+    order_dish = input('> ')
+    print('\n')
+    snake_category = order_dish
+    while order_dish:
+      if order_dish == 'quit':
+        exit_game()
+      else:
+        if snake_category == order_dish:
+            counter+=1
+            print(f'** {counter} order of {order_dish} have been added to your meal **\n')
+        else:
+            counter_orders+=1
+            print(f'** {counter_orders} order of {order_dish} have been added to your meal **\n')
+        order_dish=''
+        order_dish= input('> ')
+        print('\n')
+          
+          
+def exit_game():
+    exit_menue=input('Would you like to exit the program?quit(y/n) \n> ')
+    if exit_menue=='y':
+        exit()
     else:
-        for foodtype in menu:
-            for kind in foodtype["foods"]:
-                if order.lower() == kind.lower():
-                    orderlist.append(order)
-                    # print(orderlist)
-                    if order in orderlist:
-                        counter = orderlist.count(order)
-                        # print("inside counterrrrr",counter)
-                        print(f"** {counter} orders of {order} have been added to your meal **")
-                        break
-                    else:
-                        print(f"** {counter} orders of {order} have been added to your meal **")
+        choose_snake()
 
 
-if flag == 0:
-    print("Thank you for ordering from our restaurant")    
+welcoming_Massage()
+choose_snake()
